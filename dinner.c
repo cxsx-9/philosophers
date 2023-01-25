@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:05:02 by csantivi          #+#    #+#             */
-/*   Updated: 2023/01/26 00:15:08 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/01/26 01:12:12 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,8 @@ void	do_something(int wait, t_philo *philo)
 	r = philo->rules;
 	start = time_stamp();
 	while (time_stamp() - start < (size_t)wait
-		&& time_stamp() - philo->last_eat < (size_t)r->time_to_die)
+		&& !r->died)
 		usleep(10);
-	if (time_stamp() - philo->last_eat >= (size_t)r->time_to_die)
-	{
-		r->died = 1;
-		print_log(philo, "died");
-	}
 }
 
 void	check_died(t_rules *rules, t_philo **p_philo)
@@ -35,12 +30,12 @@ void	check_died(t_rules *rules, t_philo **p_philo)
 	int		i;
 
 	philo = *p_philo;
-	while (!rules->died || rules->done != rules->num_of_philo)
+	while (!rules->died && rules->done != rules->num_of_philo)
 	{
 		i = -1;
 		while (++i < rules->num_of_philo && !rules->died)
 		{
-			if (philo->eat == rules->num_of_eat)
+			if (philo->eat == rules->num_of_eat || rules->died)
 				return ;
 			if (time_stamp() - philo[i].last_eat >= (size_t)rules->time_to_die)
 			{
