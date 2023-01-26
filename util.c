@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 11:35:47 by csantivi          #+#    #+#             */
-/*   Updated: 2023/01/26 18:35:30 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:09:43 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	clear_philo_exit(t_philo **philo, t_rules *rules)
 	while (i < rules->num_of_philo)
 		pthread_mutex_destroy(&rules->fork[i++]);
 	pthread_mutex_destroy(&rules->print);
-	free(*philo);
 	free(rules->fork);
+	free(*philo);
 }
 
 void	print_log(t_philo *philo, char *str)
