@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 11:35:47 by csantivi          #+#    #+#             */
-/*   Updated: 2023/01/26 00:04:16 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:37:35 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	print_log(t_philo *philo, char *str)
 
 	r = philo->rules;
 	if (r->died)
+	{
+		usleep(r->time_to_die * 1000);	
 		return ;
+	}
 	printf("%ld %d %s\n", time_stamp() - r->start, philo->id, str);
 }
