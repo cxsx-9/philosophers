@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:53:55 by csantivi          #+#    #+#             */
-/*   Updated: 2023/01/26 16:30:04 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:26:24 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_rules
 	int				died;
 	int				done;
 	size_t			start;
+	pthread_mutex_t	print;
 	pthread_mutex_t	*fork;
 }				t_rules;
 

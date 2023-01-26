@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 11:35:47 by csantivi          #+#    #+#             */
-/*   Updated: 2023/01/26 16:37:35 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:35:30 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	clear_philo_exit(t_philo **philo, t_rules *rules)
 	i = 0;
 	while (i < rules->num_of_philo)
 		pthread_mutex_destroy(&rules->fork[i++]);
+	pthread_mutex_destroy(&rules->print);
 	free(*philo);
 	free(rules->fork);
 }
@@ -77,10 +78,8 @@ void	print_log(t_philo *philo, char *str)
 	t_rules	*r;
 
 	r = philo->rules;
-	if (r->died)
-	{
-		usleep(r->time_to_die * 1000);	
-		return ;
-	}
-	printf("%ld %d %s\n", time_stamp() - r->start, philo->id, str);
+	pthread_mutex_lock(&r->print);
+	if (!r->died)
+		printf("%ld %d %s\n", time_stamp() - r->start, philo->id, str);
+	pthread_mutex_unlock(&r->print);
 }

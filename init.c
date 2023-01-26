@@ -6,7 +6,7 @@
 /*   By: csantivi <csantivi@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 11:38:13 by csantivi          #+#    #+#             */
-/*   Updated: 2023/01/26 16:30:08 by csantivi         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:27:13 by csantivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	init_mutex(t_rules *rules)
 	int	i;
 
 	i = 0;
+	if (pthread_mutex_init(&rules->print, NULL))
+		return (1);
 	rules->fork = malloc(rules->num_of_philo * sizeof(pthread_mutex_t));
 	if (!rules->fork)
 		return (1);
